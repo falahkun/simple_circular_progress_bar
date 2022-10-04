@@ -62,6 +62,10 @@ class SimpleCircularProgressBar extends StatefulWidget {
   /// progress bar. The callback input is the current value of the bar progress.
   final OnGetCenterText? onGetText;
 
+  /// make progress bar repeated
+  /// default false
+  final bool enableRepeat;
+
   /// Create simple circular progress bar.
   ///
   /// Main params. Create simple circular progress bar with size equal to [size]
@@ -109,6 +113,7 @@ class SimpleCircularProgressBar extends StatefulWidget {
     this.mergeMode = false,
     this.valueNotifier,
     this.onGetText,
+    this.enableRepeat = false
   }) : super(key: key);
 
   @override
@@ -212,6 +217,11 @@ class _SimpleCircularProgressBarState extends State<SimpleCircularProgressBar>
           animationController.forward();
         } else {
           animationController.animateTo(value);
+        }
+
+        // Repeat Logic
+        if (widget.enableRepeat) {
+          animationController.repeat();
         }
 
         return AnimatedBuilder(
